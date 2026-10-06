@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.4.4</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.dayzero</groupId>
+  <artifactId>catalog-java-cicd-template</artifactId>
+  <version>1.0.0</version>
+  <name>catalog-java-cicd-template</name>
+  <description>Spring Boot service for DayZer0 CI/CD briefs — the student builds the pipeline</description>
+
+  <properties>
+    <java.version>17</java.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <!-- Integration tests (*IT.java) run on `./mvnw verify`, after the fast
+           unit suite. They are deliberately slow — splitting them away from
+           the unit tests in CI is part of a brief on this repository. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- NOTE, deliberate: checkstyle.xml sits at the repository root with
+           seeded violations in the source, and Checkstyle is NOT wired into
+           this build. Wiring it in is a ticket on one of the briefs this
+           template serves. -->
+    </plugins>
+  </build>
+</project>
